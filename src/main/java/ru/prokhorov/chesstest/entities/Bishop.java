@@ -1,12 +1,11 @@
 package ru.prokhorov.chesstest.entities;
 
-public class Bishop implements  ChessPiece{
+import ru.prokhorov.chesstest.enums.Color;
+import ru.prokhorov.chesstest.interfaces.ChessPiece;
+
+public class Bishop implements ChessPiece {
     private final String name;
     private final Color color;
-
-    @Override
-    public void move() {
-    }
 
     @Override
     public Color isColor() {
@@ -27,4 +26,10 @@ public class Bishop implements  ChessPiece{
     public int getWeight() {
         return 3;
     }
+
+    @Override
+    public boolean movePossible(int startPosH, int startPosV, int targetH, int targetV) {
+        return false;
+    }
+
 }

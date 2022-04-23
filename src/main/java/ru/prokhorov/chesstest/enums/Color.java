@@ -1,4 +1,4 @@
-package ru.prokhorov.chesstest.entities;
+package ru.prokhorov.chesstest.enums;
 
 public enum Color {
     WHITE,

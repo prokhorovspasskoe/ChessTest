@@ -1,16 +1,20 @@
 package ru.prokhorov.chesstest.entities;
 
-public class Knight implements ChessPiece{
+import ru.prokhorov.chesstest.enums.Color;
+import ru.prokhorov.chesstest.interfaces.ChessPiece;
+
+public class Knight implements ChessPiece {
     private final String name;
     private final Color color;
 
     @Override
-    public void move() {
+    public int getWeight() {
+        return 3;
     }
 
     @Override
-    public int getWeight() {
-        return 3;
+    public boolean movePossible(int startPosH, int startPosV, int targetH, int targetV) {
+        return false;
     }
 
     @Override
