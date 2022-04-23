@@ -22,6 +22,7 @@ public class Pawn implements ChessPiece{
         this.color = color;
     }
 
+    @Override
     public String getName() {
         return name;
     }

@@ -22,6 +22,7 @@ public class Knight implements ChessPiece{
         this.color = color;
     }
 
+    @Override
     public String getName() {
         return name;
     }

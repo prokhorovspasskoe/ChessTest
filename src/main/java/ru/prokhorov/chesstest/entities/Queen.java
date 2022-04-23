@@ -23,6 +23,7 @@ public class Queen implements ChessPiece{
         this.color = color;
     }
 
+    @Override
     public String getName() {
         return name;
     }
