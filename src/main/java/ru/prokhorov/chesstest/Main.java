@@ -8,6 +8,6 @@ public class Main {
         ChessBoard chessBoard = new ChessBoard();
         chessBoard.setStartPosition();
         ChessPlayer chessPlayer = new ChessPlayer();
-        chessPlayer.turn(7, 0, 2, 0, chessBoard.getBoard(), chessBoard.getBlackBishop());
+        chessPlayer.turn(6, 0, 6, 7, chessBoard.getBoard(), chessBoard.getBlackPawn());
     }
 }

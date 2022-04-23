@@ -101,6 +101,7 @@ public class ChessPlayer {
             Line line = scanLine(positionH, positionV, targetH, targetV, board);
             if(line.getLen() != 0){
                 boolean a = possibilityOfTheMove(chessPiece, positionH, positionV, targetH, targetV);
+                System.out.println(a);
             }
         }else{
             if (isCellEmpty(targetH, targetV, board) == null || board[targetH][targetV].isColor() != chessPiece.isColor()) {
@@ -111,12 +112,23 @@ public class ChessPlayer {
     }
 
     private boolean possibilityOfTheMove(ChessPiece chessPiece, int positionH, int positionV, int targetH, int targetV) {
+
         if(chessPiece.getName().equals("Knight")){
             if(Math.abs(positionH - targetH) == 2 && Math.abs(positionV - targetV) == 1) return true;
             if(Math.abs(positionH - targetH) == 1 && Math.abs(positionV - targetV) == 2) return true;
         }
+
         if(chessPiece.getName().equals("Pawn")){
-            
+            if(targetV > positionH)
+            {
+                if(targetV - positionH == 2 && positionH == 1 && targetV < 6) return true;
+                if(targetV - positionH == 1 && positionH >= 1 && targetV < 6) return true;
+            }
+            if(positionH > targetV){
+                if(positionH - targetV == 2 && positionH == 6 && targetV > 1) return true;
+                if(positionH - targetV == 1 && positionH >= 6 && targetV > 1) return true;
+            }
+            // Взятие на проходе
         }
 
         return false;

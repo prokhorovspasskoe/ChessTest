@@ -6,5 +6,4 @@ public interface ChessPiece {
     Color isColor();
     String getName();
     int getWeight();
-    boolean movePossible(int startPosH, int startPosV, int targetH, int targetV);
 }

@@ -27,9 +27,4 @@ public class Bishop implements ChessPiece {
         return 3;
     }
 
-    @Override
-    public boolean movePossible(int startPosH, int startPosV, int targetH, int targetV) {
-        return false;
-    }
-
 }

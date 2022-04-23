@@ -14,11 +14,6 @@ public class King implements ChessPiece {
     }
 
     @Override
-    public boolean movePossible(int startPosH, int startPosV, int targetH, int targetV) {
-        return false;
-    }
-
-    @Override
     public Color isColor() {
         return color;
     }
