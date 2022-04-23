@@ -1,26 +1,22 @@
 package ru.prokhorov.chesstest.entities;
 
 public class Queen implements ChessPiece{
-    private String name;
-    private final int weight = 9;
-    private boolean color;
+    private final String name;
+    private final Color color;
 
     @Override
     public void move() {
 
     }
 
+    @Override
     public int getWeight() {
-        return weight;
+        return 9;
     }
 
     @Override
-    public boolean isColor() {
+    public Color isColor() {
         return color;
-    }
-
-    public void setColor(boolean color) {
-        this.color = color;
     }
 
     @Override
@@ -28,7 +24,8 @@ public class Queen implements ChessPiece{
         return name;
     }
 
-    public void setName(String name) {
+    public Queen(String name, Color color) {
         this.name = name;
+        this.color = color;
     }
 }

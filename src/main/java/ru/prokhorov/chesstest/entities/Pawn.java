@@ -1,25 +1,21 @@
 package ru.prokhorov.chesstest.entities;
 
 public class Pawn implements ChessPiece{
-    private String name;
-    private final int weight = 1;
-    private boolean color;
+    private final String name;
+    private final Color color;
 
     @Override
     public void move() {
     }
 
+    @Override
     public int getWeight() {
-        return weight;
+        return 1;
     }
 
     @Override
-    public boolean isColor() {
+    public Color isColor() {
         return color;
-    }
-
-    public void setColor(boolean color) {
-        this.color = color;
     }
 
     @Override
@@ -27,7 +23,8 @@ public class Pawn implements ChessPiece{
         return name;
     }
 
-    public void setName(String name) {
+    public Pawn(String name, Color color) {
         this.name = name;
+        this.color = color;
     }
 }

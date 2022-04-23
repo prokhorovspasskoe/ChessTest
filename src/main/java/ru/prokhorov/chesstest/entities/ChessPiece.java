@@ -1,7 +1,8 @@
 package ru.prokhorov.chesstest.entities;
 
 public interface ChessPiece {
-    boolean isColor();
+    Color isColor();
     String getName();
+    int getWeight();
     void move();
 }
