@@ -69,7 +69,38 @@ public class ChessBoard {
         return hor >= 0 && ver >= 0 && hor < HORIZONTAL && ver < VERTICAL;
     }
 
-    private int lenLine(int positionH, int PositionV, int targetH, int targetV){
-        
+    private int lenLine(int positionH, int positionV, int targetH, int targetV){
+        int len = 0;
+        if(isCellValid(targetH, targetV)){
+            if(positionH == targetH && positionV < targetV){
+                for (int i = positionV; i <= targetV; i++) {
+                    if(!isCellValid(positionH, i)) break;
+                    len++;
+                }
+            }
+
+            if(positionH == targetH && positionV > targetV){
+                for (int i = positionV; i >= targetV ; i--) {
+                    if(!isCellValid(positionH, i)) break;
+                    len++;
+                }
+            }
+
+            if(positionH > targetH && positionV == targetV){
+                for (int i = positionH; i >= targetH ; i--) {
+                    if(!isCellValid(i, positionV)) break;
+                    len++;
+                }
+            }
+
+            if(positionH < targetH && positionV == targetV){
+                for (int i = positionH; i <= targetH ; i++) {
+                    if(!isCellValid(i, positionV)) break;
+                    len++;
+                }
+            }
+        }
+
+        return len;
     }
 }
