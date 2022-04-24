@@ -85,7 +85,8 @@ public class ChessCore {
                 }
             }
         }
-
         return line;
     }
+
+
 }
