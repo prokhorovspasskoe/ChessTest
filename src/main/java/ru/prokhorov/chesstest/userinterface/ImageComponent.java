@@ -1,0 +1,94 @@
+package ru.prokhorov.chesstest.userinterface;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+
+public class ImageComponent extends JComponent {
+    private Image image;
+    private Image fonBoard;
+    private Image fieldWhite;
+    private Image fieldBlack;
+    private Image loadPiece;
+
+    public ImageComponent()
+    {
+        // Получаем изображения.
+        try
+        {
+            image = ImageIO.read(new File("src/main/resources/img/Fon.jpg"));
+            fonBoard = ImageIO.read(new File("src/main/resources/img/FonBoard.jpg"));
+            fieldWhite = ImageIO.read(new File("src/main/resources/img/FieldWhite.png"));
+            fieldBlack = ImageIO.read(new File("src/main/resources/img/blackField.png"));
+        }
+        catch(IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void paintComponent(Graphics g)
+    {
+        if(image == null) return;
+        int constX = 250;
+        int constY = 150;
+
+        // Отображение рисунка в левом верхнем углу.
+        g.drawImage(image, 0, 0, null);
+        g.drawImage(fonBoard, 200, 100, null);
+
+        for (int j = 0; j < 4; j++) {
+            for (int i = 0; i < 4; i++) {
+                g.drawImage(fieldWhite, constX, constY, null);
+                setLoadPiece(true, "pawn");
+                if(j == 3) g.drawImage(loadPiece, constX, constY, null);
+                constX = constX + 100;
+                g.drawImage(fieldBlack, constX, constY, null);
+                setLoadPiece(false, "pawn");
+                if(j == 3) g.drawImage(loadPiece, constX, constY, null);
+                constX = constX + 100;
+            }
+            constX = 250;
+            constY = constY + 100;
+
+            for (int i = 0; i < 4; i++) {
+                g.drawImage(fieldBlack, constX, constY, null);
+                setLoadPiece(false, "pawn");
+                if(j == 0) g.drawImage(loadPiece, constX, constY, null);
+                constX = constX + 100;
+                g.drawImage(fieldWhite, constX, constY, null);
+                setLoadPiece(true, "pawn");
+                if(j == 0) g.drawImage(loadPiece, constX, constY, null);
+                constX = constX + 100;
+            }
+
+            constX = 250;
+            constY = constY + 100;
+        }
+    }
+
+    public void painter(int x, int y){
+        setLoadPiece(true, "pawn");
+        getGraphics().drawImage(loadPiece, x, y, null);
+    }
+
+    private void setLoadPiece(boolean color, String piece){
+        if(color && piece.equals("pawn")){
+            try{
+                loadPiece = ImageIO.read(new File("src/main/resources/img/whitepawn.jpg"));
+            }catch (IOException ioe){
+                ioe.printStackTrace();
+            }
+        }
+        if(!color && piece.equals("pawn")){
+            try{
+                loadPiece = ImageIO.read(new File("src/main/resources/img/whitepawnblackfield.jpg"));
+            }catch (IOException ioe){
+                ioe.printStackTrace();
+            }
+        }
+    }
+}
