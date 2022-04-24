@@ -33,7 +33,8 @@ public class ChessCore {
     }
 
     public ChessPiece isPiece(int targetFieldH, int targetFieldV, ChessPiece[][] board){
-        return board[targetFieldH][targetFieldV];
+        ChessPiece chessPiece = board[targetFieldH][targetFieldV];
+        return chessPiece;
     }
 
     public Line scanLine(int positionH, int positionV, int targetH, int targetV, ChessPiece[][] board){

@@ -129,33 +129,33 @@ public class ChessBoard {
         this.chessPieceList.remove(chessPiece);
     }
 
-
     private boolean isCellValid(int hor, int ver){
         return hor >= 0 && ver >= 0 && hor < HORIZONTAL && ver < VERTICAL;
     }
+
     public void setStartPosition(){
         board[0][0] = blackRook;
-        board[0][1] = blackKnight;
-        board[0][2] = blackBishop;
-        board[0][3] = blackQueen;
-        board[0][4] = blackKing;
-        board[0][5] = blackBishop;
-        board[0][6] = blackKnight;
-        board[0][7] = blackRook;
+        board[1][0] = blackKnight;
+        board[2][0] = blackBishop;
+        board[3][0] = blackQueen;
+        board[4][0] = blackKing;
+        board[5][0] = blackBishop;
+        board[6][0] = blackKnight;
+        board[7][0] = blackRook;
         for (int i = 0; i < VERTICAL; i++) {
-            board[1][i] = blackPawn;
+            board[i][1] = blackPawn;
         }
 
-        board[7][0] = whiteRook;
-        board[7][1] = whiteKnight;
-        board[7][2] = whiteBishop;
-        board[7][3] = whiteQueen;
-        board[7][4] = whiteKing;
-        board[7][5] = whiteBishop;
-        board[7][6] = whiteKnight;
+        board[0][7] = whiteRook;
+        board[1][7] = whiteKnight;
+        board[2][7] = whiteBishop;
+        board[3][7] = whiteQueen;
+        board[4][7] = whiteKing;
+        board[5][7] = whiteBishop;
+        board[6][7] = whiteKnight;
         board[7][7] = whiteRook;
         for (int i = 0; i < VERTICAL; i++) {
-            board[6][i] = whitePawn;
+            board[i][6] = whitePawn;
         }
     }
 }
