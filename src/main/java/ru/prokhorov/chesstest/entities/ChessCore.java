@@ -4,11 +4,15 @@ public class ChessCore {
     private final int HORIZONTAL = 8;
     private final int VERTICAL = 8;
 
-    private boolean isCellValid(int hor, int ver){
+    public boolean isCellValid(int hor, int ver){
         return hor >= 0 && ver >= 0 && hor < HORIZONTAL && ver < VERTICAL;
     }
 
-    private Line scanLine(int positionH, int positionV, int targetH, int targetV, ChessPiece[][] board){
+    public ChessPiece isPiece(int targetFieldH, int targetFieldV, ChessPiece[][] board){
+        return board[targetFieldH][targetFieldV];
+    }
+
+    public Line scanLine(int positionH, int positionV, int targetH, int targetV, ChessPiece[][] board){
         int len = 0;
         Line line = new Line();
         if(isCellValid(targetH, targetV)){
@@ -17,8 +21,8 @@ public class ChessCore {
                     if(!isCellValid(positionH, i)) break;
                     line.setObjectToLine(board[positionH][i], len);
                     len++;
-                    line.setLen(len);
                 }
+                line.setLen(len);
             }
 
             if(positionH == targetH && positionV > targetV){
@@ -26,8 +30,8 @@ public class ChessCore {
                     if(!isCellValid(positionH, i)) break;
                     line.setObjectToLine(board[positionH][i], len);
                     len++;
-                    line.setLen(len);
                 }
+                line.setLen(len);
             }
 
             if(positionH > targetH && positionV == targetV){
@@ -35,8 +39,8 @@ public class ChessCore {
                     if(!isCellValid(i, positionV)) break;
                     line.setObjectToLine(board[i][positionV], len);
                     len++;
-                    line.setLen(len);
                 }
+                line.setLen(len);
             }
 
             if(positionH < targetH && positionV == targetV){
@@ -44,8 +48,8 @@ public class ChessCore {
                     if(!isCellValid(i, positionV)) break;
                     line.setObjectToLine(board[i][positionV], len);
                     len++;
-                    line.setLen(len);
                 }
+                line.setLen(len);
             }
 
             if(positionH < targetH && positionV < targetV){
