@@ -6,6 +6,28 @@ public class ChessCore {
     private final int HORIZONTAL = 8;
     private final int VERTICAL = 8;
 
+    private final PixelRange[] pixelRangesX;
+    private final PixelRange[] pixelRangesY;
+
+    public ChessCore() {
+        pixelRangesX = new PixelRange[8];
+        pixelRangesY = new PixelRange[8];
+        int constX = 250;
+        int constX2 = 350;
+        int constY = 200;
+        int constY2 = 300;
+        for (int i = 0; i < 8; i++) {
+            PixelRange pixelRange_x = new PixelRange(constX, constX2);
+            PixelRange pixelRange_y = new PixelRange(constY, constY2);
+            pixelRangesY[i] = pixelRange_y;
+            pixelRangesX[i] = pixelRange_x;
+            constX = constX + 100;
+            constX2 = constX2 + 100;
+            constY = constY + 100;
+            constY2 = constY2 + 100;
+        }
+    }
+
     public boolean isCellValid(int hor, int ver){
         return hor >= 0 && ver >= 0 && hor < HORIZONTAL && ver < VERTICAL;
     }
@@ -94,103 +116,14 @@ public class ChessCore {
     public Field getField(int mousePositionX, int mousePositionY) {
         Field field = new Field();
 
-        if(mousePositionX >= 250 && mousePositionX <= 350 && mousePositionY >= 200 && mousePositionY <= 300){
-            field.setX(0);
-            field.setY(0);
-        }
-        if(mousePositionX >= 350 && mousePositionX <= 450 && mousePositionY >= 200 && mousePositionY <= 300){
-            field.setX(1);
-            field.setY(0);
-        }
-        if(mousePositionX >= 450 && mousePositionX <= 550 && mousePositionY >= 200 && mousePositionY <= 300){
-            field.setX(2);
-            field.setY(0);
-        }
-        if(mousePositionX >= 550 && mousePositionX <= 650 && mousePositionY >= 200 && mousePositionY <= 300){
-            field.setX(3);
-            field.setY(0);
-        }
-        if(mousePositionX >= 650 && mousePositionX <= 750 && mousePositionY >= 200 && mousePositionY <= 300){
-            field.setX(4);
-            field.setY(0);
-        }
-        if(mousePositionX >= 750 && mousePositionX <= 850 && mousePositionY >= 200 && mousePositionY <= 300){
-            field.setX(5);
-            field.setY(0);
-        }
-        if(mousePositionX >= 850 && mousePositionX <= 950 && mousePositionY >= 200 && mousePositionY <= 300){
-            field.setX(6);
-            field.setY(0);
-        }
-        if(mousePositionX >= 950 && mousePositionX <= 1050 && mousePositionY >= 200 && mousePositionY <= 300){
-            field.setX(7);
-            field.setY(0);
-        }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        if(mousePositionX >= 250 && mousePositionX <= 350 && mousePositionY >= 300 && mousePositionY <= 400){
-            field.setX(0);
-            field.setY(1);
-        }
-        if(mousePositionX >= 350 && mousePositionX <= 450 && mousePositionY >= 300 && mousePositionY <= 400){
-            field.setX(1);
-            field.setY(1);
-        }
-        if(mousePositionX >= 450 && mousePositionX <= 550 && mousePositionY >= 300 && mousePositionY <= 400){
-            field.setX(2);
-            field.setY(1);
-        }
-        if(mousePositionX >= 550 && mousePositionX <= 650 && mousePositionY >= 300 && mousePositionY <= 400){
-            field.setX(3);
-            field.setY(1);
-        }
-        if(mousePositionX >= 650 && mousePositionX <= 750 && mousePositionY >= 300 && mousePositionY <= 400){
-            field.setX(4);
-            field.setY(1);
-        }
-        if(mousePositionX >= 750 && mousePositionX <= 850 && mousePositionY >= 300 && mousePositionY <= 400){
-            field.setX(5);
-            field.setY(1);
-        }
-        if(mousePositionX >= 850 && mousePositionX <= 950 && mousePositionY >= 300 && mousePositionY <= 400){
-            field.setX(6);
-            field.setY(1);
-        }
-        if(mousePositionX >= 950 && mousePositionX <= 1050 && mousePositionY >= 300 && mousePositionY <= 400){
-            field.setX(7);
-            field.setY(1);
-        }
-///////////////////////////////////////////////////////////////////////////////////////////////////////////////
-        if(mousePositionX >= 250 && mousePositionX <= 350 && mousePositionY >= 400 && mousePositionY <= 500){
-            field.setX(0);
-            field.setY(2);
-        }
-        if(mousePositionX >= 350 && mousePositionX <= 450 && mousePositionY >= 400 && mousePositionY <= 500){
-            field.setX(1);
-            field.setY(2);
-        }
-        if(mousePositionX >= 450 && mousePositionX <= 550 && mousePositionY >= 400 && mousePositionY <= 500){
-            field.setX(2);
-            field.setY(2);
-        }
-        if(mousePositionX >= 550 && mousePositionX <= 650 && mousePositionY >= 400 && mousePositionY <= 500){
-            field.setX(3);
-            field.setY(2);
-        }
-        if(mousePositionX >= 650 && mousePositionX <= 750 && mousePositionY >= 400 && mousePositionY <= 500){
-            field.setX(4);
-            field.setY(2);
-        }
-        if(mousePositionX >= 750 && mousePositionX <= 850 && mousePositionY >= 400 && mousePositionY <= 500){
-            field.setX(5);
-            field.setY(2);
-        }
-        if(mousePositionX >= 850 && mousePositionX <= 950 && mousePositionY >= 400 && mousePositionY <= 500){
-            field.setX(6);
-            field.setY(2);
-        }
-        if(mousePositionX >= 950 && mousePositionX <= 1050 && mousePositionY >= 400 && mousePositionY <= 500){
-            field.setX(7);
-            field.setY(2);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if(mousePositionX >= pixelRangesX[i].getRangeX() && mousePositionX <= pixelRangesX[i].getRangeX2() &&
+                mousePositionY >= pixelRangesY[j].getRangeX() && mousePositionY <= pixelRangesY[j].getRangeX2()){
+                    field.setX(i);
+                    field.setY(j);
+                }
+            }
         }
         return field;
     }
