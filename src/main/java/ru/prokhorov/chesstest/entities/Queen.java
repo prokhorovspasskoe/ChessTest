@@ -1,8 +1,9 @@
 package ru.prokhorov.chesstest.entities;
 
 import ru.prokhorov.chesstest.enums.Color;
+import ru.prokhorov.chesstest.interfaces.ChessPiece;
 
-public class Queen implements ChessPiece{
+public class Queen implements ChessPiece {
     private String name;
     private final int weight = 9;
     private Color color;

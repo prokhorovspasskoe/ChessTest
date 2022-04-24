@@ -1,5 +1,7 @@
 package ru.prokhorov.chesstest.entities;
 
+import ru.prokhorov.chesstest.interfaces.ChessPiece;
+
 public class ChessCore {
     private final int HORIZONTAL = 8;
     private final int VERTICAL = 8;

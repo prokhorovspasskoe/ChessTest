@@ -1,6 +1,7 @@
 package ru.prokhorov.chesstest.entities;
 
 import ru.prokhorov.chesstest.enums.Color;
+import ru.prokhorov.chesstest.interfaces.ChessPiece;
 
 import java.util.ArrayList;
 import java.util.List;

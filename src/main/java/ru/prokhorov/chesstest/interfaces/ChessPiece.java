@@ -1,4 +1,4 @@
-package ru.prokhorov.chesstest.entities;
+package ru.prokhorov.chesstest.interfaces;
 
 import ru.prokhorov.chesstest.enums.Color;
 
