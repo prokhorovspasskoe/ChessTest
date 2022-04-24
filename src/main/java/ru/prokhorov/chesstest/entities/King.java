@@ -1,9 +1,16 @@
 package ru.prokhorov.chesstest.entities;
 
+import ru.prokhorov.chesstest.enums.Color;
+
 public class King implements ChessPiece{
-    private String name;
+    private final String name;
     private final int weight = 50;
-    private boolean color;
+    private final Color color;
+
+    public King(String name, Color color) {
+        this.name = name;
+        this.color = color;
+    }
 
     @Override
     public void move() {
@@ -15,20 +22,14 @@ public class King implements ChessPiece{
     }
 
     @Override
-    public boolean isColor() {
+    public Color isColor() {
         return color;
     }
 
-    public void setColor(boolean color) {
-        this.color = color;
-    }
 
     @Override
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 }
