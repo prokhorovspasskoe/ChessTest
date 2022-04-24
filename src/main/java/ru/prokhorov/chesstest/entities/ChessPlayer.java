@@ -1,10 +1,16 @@
 package ru.prokhorov.chesstest.entities;
 
+import ru.prokhorov.chesstest.enums.Color;
 import ru.prokhorov.chesstest.interfaces.ChessPiece;
 
 public class ChessPlayer {
     private final int HORIZONTAL = 8;
     private final int VERTICAL = 8;
+    private boolean isCheck;
+
+    public ChessPlayer() {
+        this.isCheck = false;
+    }
 
     private boolean isCellValid(int hor, int ver){
         return hor >= 0 && ver >= 0 && hor < HORIZONTAL && ver < VERTICAL;
@@ -100,6 +106,61 @@ public class ChessPlayer {
 
     }
 
+    private boolean testMove(int positionH, int positionV, int targetH, int targetV, ChessPiece[][] board, ChessPiece chessPiece){
+        ChessPiece[][] bufferBoard = new ChessPiece[HORIZONTAL][VERTICAL];
+        ChessPiece isKing = null;
+
+        for (int i = 0; i < HORIZONTAL; i++) {
+            for (int j = 0; j < VERTICAL; j++) {
+                bufferBoard[i][j] = board[i][j];
+            }
+        }
+
+        if(!chessPiece.getName().equals("Pawn")){
+            isKing = isCellEmpty(targetH, targetV, bufferBoard);
+            if(isKing.getName().equals("King") && isKing.isColor() != chessPiece.isColor()){
+                isCheck = true;
+                return false;
+            }
+
+            bufferBoard[targetH][targetV] = chessPiece;
+            bufferBoard[positionH][positionV] = null;
+
+            for (int i = 0; i < HORIZONTAL; i++) {
+                for (int j = 0; j < VERTICAL; j++) {
+                    if(possibilityOfTheMove(chessPiece, positionH, positionV, i, j, bufferBoard)){
+                        isCheck = detectCheck(i, j, bufferBoard, chessPiece);
+                        if(isCheck) break;
+                    }
+                }
+            }
+            return true;
+
+        }else{
+            if(isCellValid(targetH+1, targetV+1) && chessPiece.isColor() == Color.BLACK){
+                isKing = isCellEmpty(targetH+1, targetV+1, bufferBoard);
+                if(isKing.getName().equals("King") && isKing.isColor() != chessPiece.isColor()){
+                    isCheck = true;
+                }
+            }
+            if(isCellValid(targetH+1, targetV-1) && chessPiece.isColor() == Color.BLACK){
+                isKing = isCellEmpty(targetH+1, targetV-1, bufferBoard);
+                if(isKing.getName().equals("King") && isKing.isColor() != chessPiece.isColor()){
+                    isCheck = true;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private boolean detectCheck(int targetH, int targetV, ChessPiece[][] board, ChessPiece chessPiece) {
+        ChessPiece isKing = isCellEmpty(targetH, targetV, board);
+        if(isKing.getName().equals("King") && chessPiece.isColor() != isKing.isColor()) return true;
+        return false;
+    }
+
+    // Реализовать
     // Не открывает ли шах ходящая фигура (абсолютная связка)
     // Взятие на проходе для пешки
     // Рокировка и поле под ударом для короля
@@ -107,8 +168,10 @@ public class ChessPlayer {
                                          ChessPiece[][] board) {
 
         if(chessPiece.getName().equals("Knight")){
-            if(Math.abs(positionH - targetH) == 2 && Math.abs(positionV - targetV) == 1) return true;
-            if(Math.abs(positionH - targetH) == 1 && Math.abs(positionV - targetV) == 2) return true;
+            if(Math.abs(positionH - targetH) == 2 && Math.abs(positionV - targetV) == 1 ||
+                    Math.abs(positionH - targetH) == 1 && Math.abs(positionV - targetV) == 2){
+                return true;
+            }
         }
 
         if(chessPiece.getName().equals("Pawn")){
@@ -128,9 +191,20 @@ public class ChessPlayer {
             if(len > 0){
                 ChessPiece[] chessPieces = line.getListObjectOnLine();
                 for (int i = 0; i < len; i++) {
-                    if(chessPieces[i] != null && i != len-1) return false;
+                    if(chessPieces[i] != null && i != len-1){
+                        if(chessPieces[i].getName().equals("King") && chessPieces[i].isColor() != chessPiece.isColor()){
+                            isCheck = true;
+                        }
+                        return false;
+                    }
+                    if(chessPieces[i] != null && i == len-1 && chessPieces[i].isColor() != chessPiece.isColor() &&
+                            chessPieces[i].getName().equals("King")){
+                        isCheck = true;
+                        return false;
+                    }
                     if(chessPieces[i] != null && i == len-1 && chessPieces[i].isColor() == chessPiece.isColor()) return false;
                     if(chessPieces[i] != null && i == len-1 && chessPieces[i].isColor() != chessPiece.isColor()) return true;
+
                 }
                 return true;
             }
@@ -142,7 +216,17 @@ public class ChessPlayer {
             if(len > 0){
                 ChessPiece[] chessPieces = line.getListObjectOnLine();
                 for (int i = 0; i < len; i++) {
-                    if(chessPieces[i] != null && i != len-1) return false;
+                    if(chessPieces[i] != null && i != len-1){
+                        if(chessPieces[i].getName().equals("King") && chessPieces[i].isColor() != chessPiece.isColor()){
+                            isCheck = true;
+                        }
+                        return false;
+                    }
+                    if(chessPieces[i] != null && i == len-1 && chessPieces[i].isColor() != chessPiece.isColor() &&
+                            chessPieces[i].getName().equals("King")){
+                        isCheck = true;
+                        return false;
+                    }
                     if(chessPieces[i] != null && i == len-1 && chessPieces[i].isColor() == chessPiece.isColor()) return false;
                     if(chessPieces[i] != null && i == len-1 && chessPieces[i].isColor() != chessPiece.isColor()) return true;
                 }
@@ -156,7 +240,17 @@ public class ChessPlayer {
             if(len > 0){
                 ChessPiece[] chessPieces = line.getListObjectOnLine();
                 for (int i = 0; i < len; i++) {
-                    if(chessPieces[i] != null && i != len-1) return false;
+                    if(chessPieces[i] != null && i != len-1){
+                        if(chessPieces[i].getName().equals("King") && chessPieces[i].isColor() != chessPiece.isColor()){
+                            isCheck = true;
+                        }
+                        return false;
+                    }
+                    if(chessPieces[i] != null && i == len-1 && chessPieces[i].isColor() != chessPiece.isColor() &&
+                            chessPieces[i].getName().equals("King")){
+                        isCheck = true;
+                        return false;
+                    }
                     if(chessPieces[i] != null && i == len-1 && chessPieces[i].isColor() == chessPiece.isColor()) return false;
                     if(chessPieces[i] != null && i == len-1 && chessPieces[i].isColor() != chessPiece.isColor()) return true;
                 }
