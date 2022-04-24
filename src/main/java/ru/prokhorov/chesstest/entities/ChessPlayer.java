@@ -87,31 +87,24 @@ public class ChessPlayer {
         return line;
     }
 
-    public ChessPiece isCellEmpty(int targetH, int targetV, ChessPiece[][] board){
+    private ChessPiece isCellEmpty(int targetH, int targetV, ChessPiece[][] board){
         ChessPiece chessPiece = null;
         chessPiece = board[targetH][targetV];
         return chessPiece;
     }
 
+    public void checkTurn(int positionH, int positionV, int targetH, int targetV, ChessPiece[][] board, ChessPiece chessPiece){
 
+        boolean isThisPossibleMove = possibilityOfTheMove(chessPiece, positionH, positionV, targetH, targetV, board);
+        System.out.println(isThisPossibleMove);
 
-    public void turn(int positionH, int positionV, int targetH, int targetV, ChessPiece[][] board, ChessPiece chessPiece){
-
-        if(!chessPiece.getName().equals("Knight")){
-            Line line = scanLine(positionH, positionV, targetH, targetV, board);
-            if(line.getLen() != 0){
-                boolean a = possibilityOfTheMove(chessPiece, positionH, positionV, targetH, targetV);
-                System.out.println(a);
-            }
-        }else{
-            if (isCellEmpty(targetH, targetV, board) == null || board[targetH][targetV].isColor() != chessPiece.isColor()) {
-                board[targetH][targetV] = chessPiece;
-                board[positionH][positionV] = null;
-            }
-        }
     }
 
-    private boolean possibilityOfTheMove(ChessPiece chessPiece, int positionH, int positionV, int targetH, int targetV) {
+    // Не открывает ли шах ходящая фигура (абсолютная связка)
+    // Взятие на проходе для пешки
+    // Рокировка и поле под ударом для короля
+    private boolean possibilityOfTheMove(ChessPiece chessPiece, int positionH, int positionV, int targetH, int targetV,
+                                         ChessPiece[][] board) {
 
         if(chessPiece.getName().equals("Knight")){
             if(Math.abs(positionH - targetH) == 2 && Math.abs(positionV - targetV) == 1) return true;
@@ -119,8 +112,7 @@ public class ChessPlayer {
         }
 
         if(chessPiece.getName().equals("Pawn")){
-            if(targetV > positionH)
-            {
+            if(targetV > positionH) {
                 if(targetV - positionH == 2 && positionH == 1 && targetV < 6) return true;
                 if(targetV - positionH == 1 && positionH >= 1 && targetV < 6) return true;
             }
@@ -128,9 +120,59 @@ public class ChessPlayer {
                 if(positionH - targetV == 2 && positionH == 6 && targetV > 1) return true;
                 if(positionH - targetV == 1 && positionH >= 6 && targetV > 1) return true;
             }
-            // Взятие на проходе
         }
 
+        if(chessPiece.getName().equals("Bishop")){
+            Line line = scanLine(positionH, positionV, targetH, targetV, board);
+            int len = line.getLen();
+            if(len > 0){
+                ChessPiece[] chessPieces = line.getListObjectOnLine();
+                for (int i = 0; i < len; i++) {
+                    if(chessPieces[i] != null && i != len-1) return false;
+                    if(chessPieces[i] != null && i == len-1 && chessPieces[i].isColor() == chessPiece.isColor()) return false;
+                    if(chessPieces[i] != null && i == len-1 && chessPieces[i].isColor() != chessPiece.isColor()) return true;
+                }
+                return true;
+            }
+        }
+
+        if(chessPiece.getName().equals("Rook")){
+            Line line = scanLine(positionH, positionV, targetH, targetV, board);
+            int len = line.getLen();
+            if(len > 0){
+                ChessPiece[] chessPieces = line.getListObjectOnLine();
+                for (int i = 0; i < len; i++) {
+                    if(chessPieces[i] != null && i != len-1) return false;
+                    if(chessPieces[i] != null && i == len-1 && chessPieces[i].isColor() == chessPiece.isColor()) return false;
+                    if(chessPieces[i] != null && i == len-1 && chessPieces[i].isColor() != chessPiece.isColor()) return true;
+                }
+                return true;
+            }
+        }
+
+        if(chessPiece.getName().equals("Queen")){
+            Line line = scanLine(positionH, positionV, targetH, targetV, board);
+            int len = line.getLen();
+            if(len > 0){
+                ChessPiece[] chessPieces = line.getListObjectOnLine();
+                for (int i = 0; i < len; i++) {
+                    if(chessPieces[i] != null && i != len-1) return false;
+                    if(chessPieces[i] != null && i == len-1 && chessPieces[i].isColor() == chessPiece.isColor()) return false;
+                    if(chessPieces[i] != null && i == len-1 && chessPieces[i].isColor() != chessPiece.isColor()) return true;
+                }
+                return true;
+            }
+        }
+
+        if(chessPiece.getName().equals("King")){
+            ChessPiece chPiece = isCellEmpty(targetH, targetV, board);
+            if(chPiece == null && Math.abs(positionH - targetH) == 1 && Math.abs(positionV - targetV) == 1){
+                return true;
+            }
+            if(chPiece != null && Math.abs(positionH - targetH) == 1 && Math.abs(positionV - targetV) == 1) {
+                return chPiece.isColor() != chessPiece.isColor();
+            }
+        }
         return false;
     }
 }
