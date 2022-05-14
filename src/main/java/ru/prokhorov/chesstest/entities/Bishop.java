@@ -1,9 +1,17 @@
 package ru.prokhorov.chesstest.entities;
 
-public class Bishop implements  ChessPiece{
-    private String name;
+import ru.prokhorov.chesstest.enums.Color;
+import ru.prokhorov.chesstest.interfaces.ChessPiece;
+
+public class Bishop implements ChessPiece {
+    private final String name;
     private final int weight = 3;
-    private boolean color;
+    private final Color color;
+
+    public Bishop(String name, Color color) {
+        this.name = name;
+        this.color = color;
+    }
 
     @Override
     public void move() {
@@ -15,12 +23,8 @@ public class Bishop implements  ChessPiece{
     }
 
     @Override
-    public boolean isColor() {
+    public Color isColor() {
         return color;
-    }
-
-    public void setColor(boolean color) {
-        this.color = color;
     }
 
     @Override
@@ -28,7 +32,4 @@ public class Bishop implements  ChessPiece{
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 }

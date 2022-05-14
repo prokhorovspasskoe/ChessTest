@@ -1,9 +1,17 @@
 package ru.prokhorov.chesstest.entities;
 
-public class Pawn implements ChessPiece{
-    private String name;
+import ru.prokhorov.chesstest.enums.Color;
+import ru.prokhorov.chesstest.interfaces.ChessPiece;
+
+public class Pawn implements ChessPiece {
+    private final String name;
     private final int weight = 1;
-    private boolean color;
+    private final Color color;
+
+    public Pawn(String name, Color color) {
+        this.name = name;
+        this.color = color;
+    }
 
     @Override
     public void move() {
@@ -14,12 +22,8 @@ public class Pawn implements ChessPiece{
     }
 
     @Override
-    public boolean isColor() {
+    public Color isColor() {
         return color;
-    }
-
-    public void setColor(boolean color) {
-        this.color = color;
     }
 
     @Override
@@ -27,7 +31,4 @@ public class Pawn implements ChessPiece{
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
 }
