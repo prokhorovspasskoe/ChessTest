@@ -47,7 +47,6 @@ public class ChessCore {
                     line.setObjectToLine(board[positionH][i], len);
                     len++;
                 }
-                line.setLen(len);
             }
 
             if(positionH == targetH && positionV > targetV){
@@ -56,7 +55,6 @@ public class ChessCore {
                     line.setObjectToLine(board[positionH][i], len);
                     len++;
                 }
-                line.setLen(len);
             }
 
             if(positionH > targetH && positionV == targetV){
@@ -65,7 +63,6 @@ public class ChessCore {
                     line.setObjectToLine(board[i][positionV], len);
                     len++;
                 }
-                line.setLen(len);
             }
 
             if(positionH < targetH && positionV == targetV){
@@ -74,7 +71,6 @@ public class ChessCore {
                     line.setObjectToLine(board[i][positionV], len);
                     len++;
                 }
-                line.setLen(len);
             }
 
             if(positionH < targetH && positionV < targetV){
@@ -83,7 +79,6 @@ public class ChessCore {
                         if(!isCellValid(i, j)) break;
                         line.setObjectToLine(board[i][j], len);
                         len++;
-                        line.setLen(len);
                     }
                 }
             }
@@ -94,7 +89,6 @@ public class ChessCore {
                         if(!isCellValid(i, j)) break;
                         line.setObjectToLine(board[i][j], len);
                         len++;
-                        line.setLen(len);
                     }
                 }
             }
@@ -105,7 +99,6 @@ public class ChessCore {
                         if(!isCellValid(i, j)) break;
                         line.setObjectToLine(board[i][j], len);
                         len++;
-                        line.setLen(len);
                     }
                 }
             }
